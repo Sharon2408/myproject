@@ -3,7 +3,7 @@ include("cdn.html");
 session_start();
 function logout(){
   session_destroy();
-  header("Location: ../src/index.php");
+  header("Location: login.php");
   exit();
   }
 echo "<div class='container-fluid'>

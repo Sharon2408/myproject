@@ -1,9 +1,9 @@
 
 <body>
     <?php
-    include("../shared/connect.php");
-    include("../shared/cdn.html");
-    include("../shared/navbar.php");
+    include("connect.php");
+    include("cdn.html");
+  // include("navbar.php");
     $prod = mysqli_query($conn, "SELECT * FROM Product;");
     echo "<div class='container'>
     <div class='row d-flex'>

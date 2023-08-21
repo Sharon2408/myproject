@@ -2,15 +2,15 @@
 session_start();
 $emailerror = $passworderror = $email = $pass = '';
 $valid = true;
-include("../src/shared/connect.php");
-include("../src/shared/cdn.html");
+include("connect.php");
+include("cdn.html");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
     $users = mysqli_query($conn,"SELECT * FROM User;");
   while($val = mysqli_fetch_assoc($users)){
     if ($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'admin' ) {
         $_SESSION["u_name"] = $_POST["username"];
-        header("Location:../src/products/crudproduct.php");
+        header("Location:crudproduct.php");
       echo  "<script> Swal.fire(
             'Good job!',
             'You clicked the button!',
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'user' ){
 
-        header("Location:../src/products/viewproduct.php");
+        header("Location:viewproduct.php");
         exit();
     }
     else {
