@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   while($val = mysqli_fetch_assoc($users)){
     if ($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'admin' ) {
         $_SESSION["u_name"] = $_POST["username"];
-        header("Location: ./src/products/crud_product.php");
+        header("Location:../src/products/crudproduct.php");
       echo  "<script> Swal.fire(
             'Good job!',
             'You clicked the button!',
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'user' ){
 
-        header("Location: /products/view_product.php");
+        header("Location:../src/products/viewproduct.php");
         exit();
     }
     else {
