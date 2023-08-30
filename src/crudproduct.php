@@ -2,22 +2,12 @@
     <?php
     include("connect.php");
     include("cdn.html");
-    // include("navbar.php");
-    $content = mysqli_query($conn, "SELECT * FROM Product;");
-    $name= $_GET['p_name'];
-    $type= $_GET['p_type'];
-    $desc= $_GET['p_desc'];
-    $quantity= $_GET['p_quantity'];
-    $price= $_GET['p_price'];
-     $image= "https://images.pexels.com/photos/7930382/pexels-photo-7930382.jpeg?auto=compress&cs=tinysrgb&w=600";
-    # Insert into the database
-    $query = "INSERT INTO Product(ProductName, ProductType, Description, Quantity, Price, Image) VALUES ('$name','$type','$desc','$quantity','$price','$image')";
-    if (mysqli_query($conn, $query)) {
-        echo "New record created successfully !";
-    } else {
-         echo "Error inserting record: " . mysqli_error($conn);
-    }
-    echo "
+   
+    $content =  "SELECT * FROM Product;";
+    $res = $conn->query($content);
+    ?>
+
+    
     <div class='container'>
     <button class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' >CREATE</button>
     <br>
@@ -36,114 +26,167 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-    </thead>";
-    while ($row = mysqli_fetch_assoc($content)) {
-        echo " <tbody>
-        <tr>
-            <td>" . $row["ProductCode"] . "</td>
-            <td>" . $row["ProductName"] . "</td>
-            <td>" . $row["ProductType"] . "</td>
-            <td>" . $row["Description"] . "</td>
-            <td>" . $row["Quantity"] . "</td>
-            <td>" . $row["Price"] . "</td>
-            <td> <img src= ' " . $row["Image"] . " ' alt='image' height='100px' width='100px'> </td>
-            <td><button type='button' class='btn btn-outline-success' >Edit</button></td>
-            <td><button type='button' class='btn btn-outline-danger' >Delete</button></td>
+    </thead>
+  <?php  while ($row = $res->fetch_assoc()): ?>
+         <tbody>
+        <tr id="row">
+            <td> <?php echo $row["ProductCode"];?> </td>
+            <td> <?php echo $row["ProductName"];?> </td>
+            <td> <?php echo $row["ProductType"];?> </td>
+            <td> <?php echo $row["Description"];?> </td>
+            <td> <?php echo $row["Quantity"];?> </td>
+            <td> <?php echo $row["Price"];?> </td>
+            <td> <img src='<?php echo $row["Image"];?>' alt='image' height='100px' width='100px'> </td>
+            <td><button type='button'  class='btn btn-outline-success' onclick='editprod(<?php echo $row["ProductCode"]; ?>);'>Edit</button></td>
+            <td><button type='button' class='btn btn-outline-danger'onclick='deleteprod(<?php echo $row["ProductCode"]; ?>);'>Delete</button></td>
         </tr>
-    </tbody>";
-    }
-    echo "   </table>
+    </tbody>
+    <?php endwhile;?>
+      </table>
            </div>
           </div>
-        </div>";
+        </div>
 
-    ?>
+       <script>
+function editprod(id){
+    var xmlhttp = new XMLHttpRequest();
+        console.log(id);
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+           var response =JSON.parse(this.responseText);
+            // document.getElementById('editProductId').value = response.ProductCode;
+            document.getElementById('name').value = response.ProductName;
+            document.getElementById('type').value = response.ProductType;
+            document.getElementById('desc').value = response.Description;
+            document.getElementById('quant').value = response.Quantity;
+            document.getElementById('price').value = response.Price;
+            
+           
+            $('#exampleModal1').modal('show');
+          }
+        };
+        xmlhttp.open('GET','edit.php?q='+id,true);
+        xmlhttp.send();
+}
+
+    function deleteprod(id){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            location.reload();
+          }
+        };
+        xmlhttp.open('GET','delete.php?q='+id,true);
+        xmlhttp.send();
+    }
+       </script>
+    
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Post Product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
-                    <!-- <div class="form-group row">
-                            <div class="col-sm-10">
-                                <input type="text" hidden class="form-control" placeholder="Product ID">
-                            </div>
-                        </div>
-                        <br> -->
+                    <form action="create.php" method="post">
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" name="p_name" class="form-control" placeholder="Product Name">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Product Name">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" name="p_type" class="form-control" placeholder="Product Type">
+                                <input type="text" id="type"  name="type" class="form-control" placeholder="Product Type">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" name="p_desc" class="form-control" placeholder="Product Description">
+                                <input type="text" id="desc" name="desc" class="form-control"
+                                    placeholder="Product Description">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" name="p_quantity" class="form-control" placeholder="Product Quantity">
+                                <input type="text" id="quant" name="quant" class="form-control" placeholder="Product Quantity">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" name="p_price" class="form-control" placeholder="Product Price">
+                                <input type="text" id="price" name="price" class="form-control" placeholder="Product Price">
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <input type="submit"  class="btn btn-primary" value="Post">
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" onclick="createProduct()" class="btn btn-primary">Post</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body text-center">
+                    <form action="edit.php" method="post">
+                    <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="id" name="ProductCode"  class="form-control"  hidden>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="name" name="ProductName" class="form-control" value="<?php echo $productData["ProductName"];?>">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="type"  name="ProductType" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="desc" name="Description" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="quant" name="Quantity" class="form-control" >
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" id="price" name="Price" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <input type="submit"  class="btn btn-primary" onclick='editprod(<?php echo $row["ProductCode"]; ?>);' value="Edit">
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
     <script>
-function createProduct() {
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-  if ( $_GET['p_name'] == ''||
-     $_GET['p_type'] == ''||
-     $_GET['p_desc'] == ''||
-    $_GET['p_quantity'] == ''||
-     $_GET['p_price']== '') {
-     Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'please fill all fields',
-          });
-    return;
-  } else {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Product',
-            text: 'Product Created',
-          });
-      }
-    };
-    xmlhttp.open("POST","getuser.php?q="+str,true);
-    xmlhttp.send();
-  }
-}
-}
-
-
-</script>
+       
+    </script>
 </body>
