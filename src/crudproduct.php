@@ -54,12 +54,12 @@ function editprod(id){
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
            var response =JSON.parse(this.responseText);
-            // document.getElementById('editProductId').value = response.ProductCode;
-            document.getElementById('name').value = response.ProductName;
-            document.getElementById('type').value = response.ProductType;
-            document.getElementById('desc').value = response.Description;
-            document.getElementById('quant').value = response.Quantity;
-            document.getElementById('price').value = response.Price;
+             document.getElementById('ProductCode').value = response.ProductCode;
+            document.getElementById('ProductName').value = response.ProductName;
+            document.getElementById('ProductType').value = response.ProductType;
+            document.getElementById('Description').value = response.Description;
+            document.getElementById('Quantity').value = response.Quantity;
+            document.getElementById('Price').value = response.Price;
             
            
             $('#exampleModal1').modal('show');
@@ -140,45 +140,45 @@ function editprod(id){
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <form action="edit.php" method="post">
+                    <form action="update.php" method="post">
                     <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="id" name="ProductCode"  class="form-control"  hidden>
+                                <input type="text" id="ProductCode" name="ProductCode"  class="form-control"  hidden>
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="name" name="ProductName" class="form-control" value="<?php echo $productData["ProductName"];?>">
+                                <input type="text" id="ProductName" name="ProductName" class="form-control">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="type"  name="ProductType" class="form-control">
+                                <input type="text" id="ProductType"  name="ProductType" class="form-control">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="desc" name="Description" class="form-control">
+                                <input type="text" id="Description" name="Description" class="form-control">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="quant" name="Quantity" class="form-control" >
+                                <input type="text" id="Quantity" name="Quantity" class="form-control" >
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <input type="text" id="price" name="Price" class="form-control" >
+                                <input type="text" id="Price" name="Price" class="form-control" >
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <input type="submit"  class="btn btn-primary" onclick='editprod(<?php echo $row["ProductCode"]; ?>);' value="Edit">
+                            <input type="submit"  class="btn btn-primary"  value="Edit">
                         </div>
                     </form>
                 </div>

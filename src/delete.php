@@ -5,7 +5,8 @@ include("connect.php");
     echo $id;
     $query = "DELETE FROM Product WHERE ProductCode = $id";
     if (mysqli_query($conn, $query)) {
-        echo "Record deleted successfully !";
+        header("Location: crudproduct.php");
+        exit();
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
     }
