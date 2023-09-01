@@ -3,7 +3,7 @@
     <?php
     include("connect.php");
     include("cdn.html");
-  // include("navbar.php");
+   include("navbar.php");
     $prod = mysqli_query($conn, "SELECT * FROM Product;");
     echo "<div class='container'>
     <div class='row d-flex'>
@@ -15,12 +15,10 @@
         <div class='card-body'>
           <h5 class='card-title'>" . $val["ProductType"] . "</h5>
           <p class='card-text'>" . $val["ProductName"] . "</p>
-          <button type='button'  class='btn btn-primary' data-bs-target='#collapseExample' data-bs-toggle='collapse' aria-expanded='false' aria-controls='collapseExample'>View Details</button>
-          <div class='collapse' id='collapseExample'>
-          <p class='card-text'>&#8377; " . $val["Price"] . "</p>
-          <p class='card-text'> " . $val["Description"] . "</p>
-          <p class='card-text'>Available Quantity :" . $val["Quantity"] . "</p>
-          </div>
+          <form action='product.php' method='post'>
+          <input value='".$val["ProductCode"]."' name='ProductCode' hidden>
+          <button type='submit'  class='btn btn-primary'  >View Details</button>
+          </form>
           </div>
       </div>
       </div>

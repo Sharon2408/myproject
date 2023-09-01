@@ -1,9 +1,11 @@
 <?php
-session_start();
+
 $emailerror = $passworderror = $email = $pass = '';
 $valid = true;
+
 include("connect.php");
 include("cdn.html");
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $users = mysqli_query($conn,"SELECT * FROM User;");
@@ -19,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     elseif($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'user' ){
-
+        $_SESSION["u_name"] = $_POST["username"];
         header("Location:viewproduct.php");
         exit();
     }
@@ -42,22 +44,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row">
             <div class="col">
                 <div class="login-form">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="" method="post">
                         <h1>Login</h1>
                         <div class="content">
                             <div class="input-field">
-                                <input type="text" name="username" value="<?php echo $email; ?>" placeholder="Username">
+                                <input type="text" name="username" value="" placeholder="Username" autocomplete="off" >
                                 <small name="emailerror">
                                     <?php echo $emailerror; ?>
                                 </small>
                             </div>
                             <div class="input-field">
-                                <input type="password" name="pass" value="<?php echo $pass; ?>" placeholder="Password">
+                                <input type="password" name="pass" value="" placeholder="Password" autocomplete="off">
                                 <small name="passworderror">
                                     <?php echo $passworderror; ?>
                                 </small>
                             </div>
-                            <a href="#" class="link">Forgot Your Password?</a>
+                           
                         </div>
                         <div class="action">
                             <button type="submit" name="submit">Sign in</button>

@@ -1,8 +1,9 @@
 <body>
     <?php
+    include("navbar.php");
     include("connect.php");
     include("cdn.html");
-   
+    
     $content =  "SELECT * FROM Product;";
     $res = $conn->query($content);
     ?>
@@ -119,6 +120,12 @@ function editprod(id){
                         <div class="form-group row">
                             <div class="col-sm-10">
                                 <input type="text" id="price" name="price" class="form-control" placeholder="Product Price">
+                            </div>
+                        </div>
+                        <br>
+                         <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="file" id="Photo" name="Photo" class="form-control" placeholder="Product Photo">
                             </div>
                         </div>
                         <div class="modal-footer">

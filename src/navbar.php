@@ -1,14 +1,9 @@
 <?php
 include("cdn.html");
 session_start();
-function logout(){
-  session_destroy();
-  header("Location: login.php");
-  exit();
-  }
 echo "<div class='container-fluid'>
 <div class='row'>
-    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+    <nav class='navbar navbar-expand-lg navbar-dark text-light bg-primary'>
         <div class='container-fluid'>
           <a class='navbar-brand' href='#'>CRUD</a>
           <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
@@ -22,10 +17,12 @@ echo "<div class='container-fluid'>
               </ul>
               <ul class='navbar-nav ms-auto'>
               <li class='nav-item'>
-                <a class='nav-link' href='#'>".$_SESSION['u_name']."</a>
+                <a class='nav-link active' href='#'>".$_SESSION['u_name']."</a>
               </li>
               <li class='nav-item'>
-                <a class='nav-link'  onclick='".logout()."' >Logout</a>
+              <form action='logout.php' method='post'>
+              <button type='submit' class='nav-link btn btn-primary  active' name='submit' >Logout</button>
+              </form>
               </li>
             </ul>
           </div>
@@ -33,6 +30,5 @@ echo "<div class='container-fluid'>
       </nav>
 </div>
 </div>";
-
 
 ?>
