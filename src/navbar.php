@@ -17,7 +17,10 @@ echo "<div class='container-fluid'>
               </ul>
               <ul class='navbar-nav ms-auto'>
               <li class='nav-item'>
-                <a class='nav-link active' href='#'>".$_SESSION['u_name']."</a>
+              <a class='nav-link active' href='Cart.php'><i class='fa-solid fa-cart-shopping fa-xl mt-2 position-relative'></i></a>
+            </li>
+              <li class='nav-item'>
+                <a class='nav-link active' href='#'>" . $_SESSION['u_name'] . "</a>
               </li>
               <li class='nav-item'>
               <form action='logout.php' method='post'>
@@ -30,5 +33,4 @@ echo "<div class='container-fluid'>
       </nav>
 </div>
 </div>";
-
 ?>

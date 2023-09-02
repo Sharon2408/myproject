@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif($val['Username'] == $_POST["username"] && $val['Password'] == $_POST["pass"] && $val['UserType'] == 'user' ){
         $_SESSION["u_name"] = $_POST["username"];
+        $_SESSION["u_id"] = $val['UID'];
         header("Location:viewproduct.php");
         exit();
     }

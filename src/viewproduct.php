@@ -15,10 +15,18 @@
         <div class='card-body'>
           <h5 class='card-title'>" . $val["ProductType"] . "</h5>
           <p class='card-text'>" . $val["ProductName"] . "</p>
+          <div class='d-flex  flex-direction-row'>
+          <div>
           <form action='product.php' method='post'>
           <input value='".$val["ProductCode"]."' name='ProductCode' hidden>
           <button type='submit'  class='btn btn-primary'  >View Details</button>
           </form>
+          </div>
+          <form action='Cart.php' method='post'>
+          <input value='".$val["ProductCode"]."' name='ProductCode' hidden>
+          <button type='submit'  class='btn btn-primary ms-2'>Add to Cart</button>
+          </form>
+          </div>
           </div>
       </div>
       </div>
