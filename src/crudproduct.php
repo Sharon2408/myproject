@@ -6,10 +6,17 @@
     
     $content =  "SELECT * FROM Product;";
     $res = $conn->query($content);
+   if(!isset($res)) {
+    echo  "<script> Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+         )</script>";
+   }
     ?>
 
     
-    <div class='container'>
+    <div class='container-fluid'>
     <button class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' >CREATE</button>
     <br>
     <div class='row'>

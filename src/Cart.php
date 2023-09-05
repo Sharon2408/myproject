@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $excart = mysqli_query($conn, $cart);
     }
 
-   
+
 }
 
 $viewcart = "SELECT * FROM Cart WHERE Userid = $u_id;";
@@ -36,6 +36,7 @@ $row2 = mysqli_query($conn, $viewcart);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
