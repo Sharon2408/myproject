@@ -16,7 +16,7 @@
     ?>
 
     
-    <div class='container-fluid'>
+    <div class='container'>
     <button class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' >CREATE</button>
     <br>
     <div class='row'>

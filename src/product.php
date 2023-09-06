@@ -91,7 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="row mt-5">
                     <div class="col-12" id="book-ticket">
-                        <a href="#">Order Now</a>
+                    <form action='Cart.php' method='post'>
+                                <input value="<?php echo $r['ProductCode']; ?>" name='ProductCode' hidden>
+                                <button type='submit' class='btn btn-primary ms-2'>Add to Cart</button>
+                            </form>
                     </div>
                 </div>
             </div>

@@ -40,6 +40,7 @@ class ViewProduct
                     <div class='card-body'>
                         <h5 class='card-title'>" . $product["ProductType"] . "</h5>
                         <p class='card-text'>" . $product["ProductName"] . "</p>
+                        
                         <div class='d-flex  flex-direction-row'>
                             <div>
                                 <form action='product.php' method='post'>
@@ -49,7 +50,9 @@ class ViewProduct
                             </div>
                             <form action='Cart.php' method='post'>
                                 <input value='" . $product["ProductCode"] . "' name='ProductCode' hidden>
-                                <button type='submit' class='btn btn-primary ms-2'>Add to Cart</button>
+                                <button type='submit' class='btn btn-primary ms-2'>Add to Cart</button> <br><br>
+                                <label>Quantity:</label>
+                        <input class='text-center' type='number' value='" . $product["ord_quant"] . "' name='ordquant'  min='1' max='50' >
                             </form>
                         </div>
                     </div>
