@@ -50,3 +50,14 @@ VALUES
 drop table user;
 select * from user;
 
+CREATE TABLE Cart (
+    ProductCode INT AUTO_INCREMENT PRIMARY KEY,
+    Userid INT;
+    foreign key (Userid) references User(UID),
+    ProductName VARCHAR(255),
+    ProductType VARCHAR(50),
+    Description TEXT,
+    Quantity INT,
+    Price DECIMAL(10, 2),
+    Image VARCHAR(255)
+);
